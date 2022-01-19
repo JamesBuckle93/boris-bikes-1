@@ -4,9 +4,9 @@ class DockingStation
   attr_reader :bike_storage
 
 
-  def initialize
+  def initialize(size)
     @bike_storage = []
-    @storage_size = 10
+    @storage_size = size
     for i in (0..@storage_size-1)
       @bike_storage.push(Bike.new)
     end
@@ -17,7 +17,7 @@ class DockingStation
     @bike_storage.pop
   end
 
-  def store_bike(bike)
+  def store_bike(bike, is_broken = false)
     if bike.is_a? Bike
       fail 'Full!' if full?
       bike_storage.push(bike)
