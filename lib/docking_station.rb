@@ -3,30 +3,34 @@ require_relative 'Bike'
 class DockingStation
   attr_reader :bike_storage
 
+
   def initialize
     @bike_storage = []
-    for i in (0..4)
+    @storage_size = 10
+    for i in (0..@storage_size-1)
       @bike_storage.push(Bike.new)
     end
   end
 
   def release_bike
-    if @bike_storage.length == 0
-      fail "No Bikes!"
-    else
-      @bike_storage.pop
-    end
+    fail "No Bikes!" if empty?
+    @bike_storage.pop
   end
 
   def store_bike(bike)
     if bike.is_a? Bike
-      if @bike_storage.length < 5
-        bike_storage.push(bike)
-      else
-        fail "Full!"
-      end
+      fail 'Full!' if full?
+      bike_storage.push(bike)
     else
       fail "Not A Bike!"
     end
+  end
+
+  private def full?
+    return @bike_storage.length == @storage_size
+  end
+
+  private def empty?
+    @bike_storage.empty?
   end
 end

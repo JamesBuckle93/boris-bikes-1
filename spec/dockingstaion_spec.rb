@@ -21,11 +21,9 @@ describe DockingStation do
 
   it "no bikes error" do
     docking_station = DockingStation.new
-    docking_station.release_bike
-    docking_station.release_bike
-    docking_station.release_bike
-    docking_station.release_bike
-    docking_station.release_bike
+    for i in (0..9)
+      docking_station.release_bike
+    end
     expect {docking_station.release_bike}.to raise_error "No Bikes!"
   end
 
